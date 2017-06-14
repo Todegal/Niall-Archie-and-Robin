@@ -115,6 +115,13 @@ void UniformMat4(glm::mat4 mat, const char * id, GLuint program)
 	glUniformMatrix4fv(loc, 1, GL_FALSE, &mat[0][0]);
 }
 
+void UniformMat3(glm::mat3 mat, const char * id, GLuint program)
+{
+	GLint loc = glGetUniformLocation(program, id);
+
+	glUniformMatrix3fv(loc, 1, GL_FALSE, &mat[0][0]);
+}
+
 void UniformVec3(glm::vec3 vec3, const char * id, GLuint program)
 {
 	GLint loc = glGetUniformLocation(program, id);

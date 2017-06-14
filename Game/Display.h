@@ -12,6 +12,7 @@ namespace Display
 
 	/// <summary> Width and Height of the Window </summary>
 	extern int width, height;
+	extern int fWidth, fHeight;
 
 	/// <summary> Title of the Window </summary>
 	extern const char* title;

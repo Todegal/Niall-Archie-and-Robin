@@ -7,6 +7,7 @@
 //Extern Variables
 GLFWwindow* Display::window = NULL;
 int Display::width = 800, Display::height = 600;
+int Display::fWidth = 800, Display::fHeight = 600;
 const char* Display::title = "Game";
 bool Display::fullscreen = false;
 
@@ -42,6 +43,9 @@ GLFWwindow* Display::Create()
 
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 
+	// Multi-Sampling
+	glfwWindowHint(GLFW_SAMPLES, 4);
+
 	/// <summary> Your Monitor's Video Settings </summary>
 	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
@@ -54,11 +58,15 @@ GLFWwindow* Display::Create()
 	// If fullscreen
 	if (Display::fullscreen)
 	{
+		Display::width = mode->width;
+		Display::height = mode->height;
 		// Create the window stretched to your moniter
 		window = glfwCreateWindow(mode->width, mode->height, Display::title, glfwGetPrimaryMonitor(), NULL);
 	}
 	else
 	{
+		Display::width = Display::fWidth;
+		Display::height = Display::fHeight;
 		// Create the window normally
 		window = glfwCreateWindow(Display::width, Display::height, Display::title, NULL, NULL);
 	}
@@ -71,6 +79,20 @@ GLFWwindow* Display::Create()
 	}
 
 	glfwMakeContextCurrent(window);
+
+	if (!Display::fullscreen)
+	{
+		// VSync
+		glfwSwapInterval(1);
+	}
+
+	// Enable depth test
+	glEnable(GL_DEPTH_TEST);
+	// Accept fragment if it closer to the camera than the former one
+	glDepthFunc(GL_LESS);
+
+	// Cull triangles which normal is not towards the camera
+	glEnable(GL_CULL_FACE);
 
 	if (glewInit() != GLEW_OK)
 	{

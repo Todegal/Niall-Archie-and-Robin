@@ -21,11 +21,6 @@ public:
 	/// <summary> Load an OBJ file </summary>
 	/// <param name="path"> The path of the model to load </param>
 	RawModel(const char* path);
-
-	/// <summary> Create A RawModel from Hard Coded Data </summary>
-	/// <param name="positions"> 3-Dimensional vertex information </param>
-	/// <param name="indices"> Element Data </param>
-	RawModel(std::vector<glm::vec3> positions, std::vector<unsigned int> indices);
 	~RawModel();
 
 	/// <summary> Draw the Model </summary>

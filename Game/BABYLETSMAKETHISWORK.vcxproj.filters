@@ -54,9 +54,6 @@
     <ClInclude Include="shader.hpp">
       <Filter>Header Files\External Code</Filter>
     </ClInclude>
-    <ClInclude Include="vboindexer.hpp">
-      <Filter>Header Files\External Code</Filter>
-    </ClInclude>
     <ClInclude Include="objloader.hpp">
       <Filter>Header Files\External Code</Filter>
     </ClInclude>
@@ -78,9 +75,6 @@
       <Filter>Source Files\Models and Shaders</Filter>
     </ClCompile>
     <ClCompile Include="shader.cpp">
-      <Filter>Source Files\External Code</Filter>
-    </ClCompile>
-    <ClCompile Include="vboindexer.cpp">
       <Filter>Source Files\External Code</Filter>
     </ClCompile>
     <ClCompile Include="objloader.cpp">

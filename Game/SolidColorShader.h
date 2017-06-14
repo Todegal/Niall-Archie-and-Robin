@@ -30,7 +30,8 @@ public:
 	/// <param name="M"> The position of the model in 3D space </param>
 	/// <param name="V"> Translates everything dependent on the camera </param>
 	/// <param name="P"> Gives everything some perspective </param>
-	void Update(glm::mat4 M, glm::mat4 V, glm::mat4 P);
+	/// <param name = "NM"> The Inverse Transpose of the Model matrix, glm::inverseTranspose() </param>
+	void Update(glm::mat4 M, glm::mat4 V, glm::mat4 P, glm::mat3 NM);
 };
 
 #endif

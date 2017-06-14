@@ -30,6 +30,8 @@ private:
 	static SolidColorShader* _shader;
 	/// <summary> Is going fullscreen Allowed, to save Game object positions and the like </summary>
 	static bool fullscreenAllowed;
+
+	static double _deltaTime;
 public:
 	/// <summary> Starts the Game </summary>
 	static void Start();

@@ -26,7 +26,6 @@
     <ClInclude Include="RawModel.h" />
     <ClInclude Include="shader.hpp" />
     <ClInclude Include="SolidColorShader.h" />
-    <ClInclude Include="vboindexer.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Display.cpp" />
@@ -36,7 +35,6 @@
     <ClCompile Include="shader.cpp" />
     <ClCompile Include="SolidColorShader.cpp" />
     <ClCompile Include="Source.cpp" />
-    <ClCompile Include="vboindexer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SolidColorShader.fs.glsl" />
@@ -131,7 +129,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalDependencies>glfw3.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>assimpd.lib;glfw3.lib;glew32.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

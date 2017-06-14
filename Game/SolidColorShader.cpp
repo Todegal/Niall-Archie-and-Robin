@@ -23,11 +23,12 @@ void SolidColorShader::Stop()
 	glUseProgram(0);
 }
 
-void SolidColorShader::Update(glm::mat4 M, glm::mat4 V, glm::mat4 P)
+void SolidColorShader::Update(glm::mat4 M, glm::mat4 V, glm::mat4 P, glm::mat3 NM)
 {
 	UniformMat4(M, "M", _program);
 	UniformMat4(V, "V", _program);
 	UniformMat4(P, "P", _program);
+	UniformMat3(NM, "NM", _program);
 
 	UniformVec3(_color, "COLOR", _program);
 }
