@@ -17,12 +17,12 @@ out vec3 Position;
 
 void main()
 {
-	Colour = vec4(COLOR, 1);
+	Colour = vec4(vec3(1, 1, 1), 1);
 
 	Normal = normalize(NM * norm);
-
-	Position = pos;
-
 	mat4 MVP = P * V * M;
+
+
+	Position = (P * V * M * vec4(pos, 1.0)).xyz;
 	gl_Position = MVP * vec4(pos, 1.0);
 }

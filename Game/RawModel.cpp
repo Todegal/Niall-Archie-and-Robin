@@ -2,7 +2,7 @@
 
 #include "objloader.hpp"
 
-RawModel::RawModel(const char* path)
+RawModel::RawModel(const char* path, bool* result)
 {
 	std::vector<unsigned short> indices;
 	std::vector<glm::vec3> positions;
@@ -10,39 +10,44 @@ RawModel::RawModel(const char* path)
 	std::vector<glm::vec3> normals;
 
 	loadAssImp(path, indices, positions, uvs, normals);
+	
+	if (indices.empty() || positions.empty() || uvs.empty() || normals.empty())
+	{
+		*result = false;
+		return;
+	}
+
 	_size = indices.size();
 
 	glGenVertexArrays(1, &_vao);
 	glBindVertexArray(_vao);
 
+	// Buffers to store the data
+	GLuint buffers[4] = { NULL, NULL, NULL, NULL };
+
 	// Buffer Positions
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glGenBuffers(1, &buffers[0]);
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * positions.size(), positions.data(), GL_STATIC_DRAW);
 
-
 	// Buffer Indices
-	GLuint ebo;
-	glGenBuffers(1, &ebo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+	glGenBuffers(1, &buffers[1]);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffers[1]);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned short) * indices.size(), indices.data(), GL_STATIC_DRAW);
 
 	// Buffer Normals
-	GLuint nbo;
-	glGenBuffers(1, &nbo);
-	glBindBuffer(GL_ARRAY_BUFFER, nbo);
+	glGenBuffers(1, &buffers[2]);
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[2]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * normals.size(), normals.data(), GL_STATIC_DRAW);
 
 	// Buffer UV
-	GLuint ubo;
-	glGenBuffers(1, &ubo);
-	glBindBuffer(GL_ARRAY_BUFFER, ubo);
+	glGenBuffers(1, &buffers[3]);
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[3]);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * uvs.size(), uvs.data(), GL_STATIC_DRAW);
 
 	// Setup Vertex Data
 	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[0]);
 	glVertexAttribPointer(
 		0,					// attribute 0. No particular reason for 0, but must match the layout in the shader.
 		3,					// number of dimensions
@@ -55,7 +60,7 @@ RawModel::RawModel(const char* path)
 	glDisableVertexAttribArray(0);
 
 	glEnableVertexAttribArray(1);
-	glBindBuffer(GL_ARRAY_BUFFER, nbo);
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[2]);
 	glVertexAttribPointer(
 		1,
 		3,
@@ -68,7 +73,7 @@ RawModel::RawModel(const char* path)
 	glDisableVertexAttribArray(1);
 
 	glEnableVertexAttribArray(2);
-	glBindBuffer(GL_ARRAY_BUFFER, ubo);
+	glBindBuffer(GL_ARRAY_BUFFER, buffers[3]);
 	glVertexAttribPointer(
 		2,
 		2,
@@ -82,6 +87,16 @@ RawModel::RawModel(const char* path)
 
 	glBindVertexArray(0);
 
+	for (int i = 0; i < 3; i++)
+	{
+		if (buffers[i] == NULL)
+		{
+			*result = false;
+			return;
+		}
+	}
+
+	*result = true;
 }
 
 RawModel::~RawModel()

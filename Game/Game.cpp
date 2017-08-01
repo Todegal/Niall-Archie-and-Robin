@@ -6,8 +6,8 @@
 
 // Static variables
 bool Game::_isRunning = false;
-RawModel* Game::_model = NULL;
-SolidColorShader* Game::_shader = NULL;
+RawModel* Game::_model = nullptr;
+SolidColorShader* Game::_shader = nullptr;
 bool Game::fullscreenAllowed = true;
 double Game::_deltaTime = 0.0;
 
@@ -105,12 +105,12 @@ void Game::_Close()
 	}
 }
 
-void Game::Start()
+int Game::Start()
 {
 	// Init the Display
 	if (!Display::Init())
 	{
-		return;
+		return -1;
 	}
 
 	_isRunning = true;
@@ -118,6 +118,8 @@ void Game::Start()
 	Create();
 
 	_Run();
+
+	return 1;
 }
 
 void Game::Stop()
@@ -127,10 +129,15 @@ void Game::Stop()
 
 void Game::Create()
 {
-	// Create Model;
-	_model = new RawModel("Monkey.obj");
+	bool shaderResult = false, modelResult = false;
 
-	_shader = new SolidColorShader({ 1, 0, 0 });
+	// Create Model;
+	_model = new RawModel("chatel.obj", &modelResult);
+
+	_shader = new SolidColorShader({ 1, 1, 1 }, &shaderResult);
+
+	if (!modelResult || !shaderResult)
+		Stop();
 }
 
 void Game::Clear(glm::vec3 color)

@@ -5,19 +5,20 @@
 
 #include <GLM\matrix.hpp>
 
-/// <summary> Will render the model in 3D space in a single color <summary>
+/// <summary> Will render the model in 3D space in a single color </summary>
 class SolidColorShader
 {
 private:
 	/// <summary> The Shader program </summary>
-	GLuint _program;
+	GLuint _program = NULL;
 
 	/// <summary> The color to be rendered </summary>
 	glm::vec3 _color;
 public:
 	/// <summary> Will render the model in 3D space in a single color </summary>
-	/// <param name="color"> The color to be rendered </param>
-	SolidColorShader(glm::vec3 color);
+	/// <param name="color"> The color to render the model </param>
+	/// <param name="result"> The address of a bool which will store whether or not this operation was succesful </param>
+	SolidColorShader(glm::vec3 color, bool* result);
 	~SolidColorShader();
 
 	/// <summary> Use the shader with the next thing we render </summary>

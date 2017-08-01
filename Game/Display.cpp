@@ -80,6 +80,12 @@ GLFWwindow* Display::Create()
 
 	glfwMakeContextCurrent(window);
 
+	if (glewInit() != GLEW_OK)
+	{
+		Error("Failed to Init GLEW");
+		return NULL;
+	}
+
 	if (!Display::fullscreen)
 	{
 		// VSync
@@ -93,12 +99,6 @@ GLFWwindow* Display::Create()
 
 	// Cull triangles which normal is not towards the camera
 	glEnable(GL_CULL_FACE);
-
-	if (glewInit() != GLEW_OK)
-	{
-		Error("Failed to Init GLEW");
-		return NULL;
-	}
 
 	return window;
 }

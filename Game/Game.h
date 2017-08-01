@@ -34,7 +34,7 @@ private:
 	static double _deltaTime;
 public:
 	/// <summary> Starts the Game </summary>
-	static void Start();
+	static int Start();
 	/// <summary> Stop the Game </summary>
 	static void Stop();
 	/// <summary> Create all GLEW dependent objects </summary>

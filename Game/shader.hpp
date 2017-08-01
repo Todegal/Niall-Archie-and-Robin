@@ -4,7 +4,11 @@
 #include <GLM\matrix.hpp>
 #include <GL\glew.h>
 
+#include <string>
+
 GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path);
+
+GLuint LoadShaders(std::string vertexShader, std::string fragmentShader);
 
 void UniformMat4(glm::mat4 mat, const char* id, GLuint program);
 
